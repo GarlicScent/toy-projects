@@ -1,0 +1,46 @@
+body {
+  margin: 0px;
+  box-sizing: border-box;
+}
+header {
+  height: 10vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+main {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 10px;
+}
+.mainContent {
+  height: 50vh;
+}
+#you {
+  font-size: 38px;
+  text-align: center;
+}
+.divider {
+  width: 2px;
+  background-color: lightgray;
+  border-radius: 7px;
+}
+#computer {
+  font-size: 38px;
+  text-align: center;
+}
+.btnImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 3px solid salmon;
+}
+.btnImage:hover {
+  transform: scale(1.1);
+}
+#selectBox {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  
+}

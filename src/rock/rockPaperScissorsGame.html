@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./rockPaperScissorsGame.css">
+  <title>가위 바위 보 게임</title>
+</head>
+<body>
+  <header>
+    <h1 id="score"> : </h1>
+    <button id="reset">reset</button>
+  </header>
+  <main>
+    <div id="you" class="mainContent">
+      <h3>you</h3>
+      <img src="./paper.jpeg" alt="">
+    </div>
+    <div class="divider"></div>
+    <div id="computer" class="mainContent">
+      <h3>computer</h3>
+      <img src="" alt="">
+    </div>
+  </main>
+  <div id="selectBox">
+    <img src="./rock.jpeg" alt="rock icon" class="btnImage" data-value="0" >
+    <img src="./scissor.jpg" alt="scissor icon" class="btnImage" data-value="1" >
+    <img src="./paper.jpeg" alt="paper icon" class="btnImage" data-value="2" >
+  </div>
+  <script src="./rockPaperScissorsGame.js"></script>
+</body>
+</html>
