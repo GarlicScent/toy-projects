@@ -3,38 +3,58 @@ const resetBtn = document.querySelector("#reset");
 const selectBox = document.querySelector("#selectBox");
 const yourImage = document.querySelector("#you img");
 const comImage = document.querySelector("#computer img");
+const modal = document.querySelector("#modal");
 
-const scoreObj = {
-	you: 0,
-	computer: 0,
-};
+const scoreObj = JSON.parse(localStorage.getItem("scoreObj"));
+
 const paintScore = () => {
 	scoreSpan.textContent = `${scoreObj.you} : ${scoreObj.computer}`;
 };
+paintScore();
+
+const initMainContentImg = () => {
+	yourImage.src = "images/questionMark.png";
+	comImage.src = "images/questionMark2.png";
+	yourImage.style.transform = "none";
+	comImage.style.transform = "none";
+};
+
 //1. reset button 누르면 점수 초기화 (localstorage 사용하여 저장)
 resetBtn.addEventListener("click", () => {
 	scoreObj.you = 0;
 	scoreObj.computer = 0;
-	yourImage.style.display = "none";
-	comImage.style.display = "none";
-	// localstorage 초기화도 함께 해준다.
+	initMainContentImg();
+	localStorage.removeItem("scoreObj");
 	paintScore();
 });
 
 //2. button click eventlistener. 이기면 모달로 승리, 패배, 무승부.
 //+ localstorage.setItem으로 설정하기.
-const modalPaint = () => {
-	console.log("adf");
+const modalPaint = (gameText) => {
+	modal.classList.toggle("show");
+	if (typeof gameText === "string") {
+		modal.querySelector("h1").textContent = gameText;
+	} else {
+		setTimeout(() => {
+			initMainContentImg();
+		}, 250);
+	}
 };
 //2-1. 유저 클릭한 btn 으로 이미지 업데이트
+//animation .animateImg가 처음에만 적용된다. -> 해결해야해!! 뭐야 왜그런거야~~??!
 const paintMainContent = (target, value) => {
-	target = target === "client" ? yourImage : comImage;
-	target.style.display = "inline";
-	if (value) {
-		target.src = value === 1 ? "./scissor.jpg" : "./paper.jpeg";
-		target.style.transform = "rotate(25deg)";
-	} else {
-		target.src = "./rock.jpeg";
+	const targetEl = target === "client" ? yourImage : comImage;
+	targetEl.style.display = "inline";
+	targetEl.classList.remove("animateImg");
+	if (value !== undefined) {
+		targetEl.src =
+			value === 0
+				? "images/rock.jpeg"
+				: value === 2
+				? "images/paper.jpeg"
+				: "images/scissor.jpg";
+		targetEl.style.transform = "rotate(25deg)";
+		targetEl.classList.add("animateImg");
 	}
 };
 //게임 승부 판별하기
@@ -48,15 +68,19 @@ const handleGame = (clientValue) => {
 
 	if (winCase && winCase === computerResult) {
 		scoreObj.you = scoreObj.you + 1;
+		modalPaint("승리하다!");
 	} else if (draw) {
-		console.log("draw~");
+		modalPaint("비겼다!");
 	} else {
 		scoreObj.computer = scoreObj.computer + 1;
+		modalPaint("졌다!");
 	}
 
 	paintMainContent("client", clientValue);
 	paintMainContent("computer", computerResult);
 	paintScore();
+
+	localStorage.setItem("scoreObj", JSON.stringify(scoreObj));
 };
 
 const getGameValue = (e) => {
@@ -68,5 +92,3 @@ const getGameValue = (e) => {
 for (let i = 0; i < selectBox.children.length; i++) {
 	selectBox.children[i].addEventListener("click", getGameValue);
 }
-
-//3. score update with localstorage.
