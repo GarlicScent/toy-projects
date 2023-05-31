@@ -1,6 +1,6 @@
 const scoreSpan = document.querySelector("#score");
 const resetBtn = document.querySelector("#reset");
-const selectBox = document.querySelector("#selectBox");
+const btnImage = document.querySelectorAll(".btnImage");
 const yourImage = document.querySelector("#you img");
 const comImage = document.querySelector("#computer img");
 const modal = document.querySelector("#modal");
@@ -73,7 +73,7 @@ const handleGame = (clientValue) => {
 		modalPaint("비겼다!");
 	} else {
 		scoreObj.computer = scoreObj.computer + 1;
-		modalPaint("졌다!");
+		modalPaint("패배하다!");
 	}
 
 	paintMainContent("client", clientValue);
@@ -84,11 +84,18 @@ const handleGame = (clientValue) => {
 };
 
 const getGameValue = (e) => {
-	setTimeout(() => {
-		handleGame(e.target.dataset.value);
-	}, 700);
+	handleGame(e.target.dataset.value);
 };
 
-for (let i = 0; i < selectBox.children.length; i++) {
-	selectBox.children[i].addEventListener("click", getGameValue);
-}
+const debounce = (callback, delay) => {
+	let timerId;
+
+	return (e) => {
+		if (timerId) clearTimeout(timerId);
+		timerId = setTimeout(callback, delay, e);
+	};
+};
+
+btnImage.forEach((btn) =>
+	btn.addEventListener("click", debounce(getGameValue, 300))
+);
