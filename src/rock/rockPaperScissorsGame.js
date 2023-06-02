@@ -5,7 +5,10 @@ const yourImage = document.querySelector("#you img");
 const comImage = document.querySelector("#computer img");
 const modal = document.querySelector("#modal");
 
-const scoreObj = JSON.parse(localStorage.getItem("scoreObj"));
+const scoreObj =
+	localStorage.getItem("scoreObj") === null
+		? { you: 0, computer: 0 }
+		: JSON.parse(localStorage.getItem("scoreObj"));
 
 const paintScore = () => {
 	scoreSpan.textContent = `${scoreObj.you} : ${scoreObj.computer}`;
