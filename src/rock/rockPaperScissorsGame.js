@@ -65,7 +65,7 @@ const paintMainContent = (target, value) => {
 const handleGame = (clientValue) => {
 	clientValue = parseInt(clientValue);
 	const computerResult = Math.floor(Math.random() * 3);
-	const winCase = clientValue + 1 !== 3 ? clientValue + 1 : false;
+	const winCase = clientValue !== 2 ? clientValue + 1 : 1;
 
 	const draw = clientValue === computerResult;
 
