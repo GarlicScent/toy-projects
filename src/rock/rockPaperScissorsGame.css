@@ -28,7 +28,7 @@ main {
 .mainContent img{
   width: 250px;
   height: 250px;
-  border-radius: 22%;
+  border-radius: 29%;
 }
 #you {
   font-size: 38px;
@@ -54,7 +54,6 @@ main {
   justify-content: space-around;
 }
 .animateImg {
-  border-radius: 10px;
   animation: shakeImg 0.75s ease-in-out 0.1s infinite;
 }
 @keyframes shakeImg {
