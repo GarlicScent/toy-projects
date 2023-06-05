@@ -61,15 +61,15 @@ const paintMainContent = (target, value) => {
 	}
 };
 //게임 승부 판별하기
-//2-2. 컴퓨터 랜덤 결과로 게임 결과 판단.
+//2-2. 컴퓨터 랜덤 결과로 게임 결과 판단. 0: 묵, 1: 찌, 2: 빠
 const handleGame = (clientValue) => {
 	clientValue = parseInt(clientValue);
 	const computerResult = Math.floor(Math.random() * 3);
-	const winCase = clientValue !== 2 ? clientValue + 1 : 1;
+	const winCase = (clientValue + 1) % 3;
 
 	const draw = clientValue === computerResult;
 
-	if (winCase && winCase === computerResult) {
+	if (winCase === computerResult) {
 		scoreObj.you = scoreObj.you + 1;
 		modalPaint("승리하다!");
 	} else if (draw) {
